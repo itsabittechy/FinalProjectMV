@@ -1,0 +1,82 @@
+/* .notebook{
+background-image: url("background_img.webp");
+background-size:cover;
+background-repeat: no-repeat; 
+min-height: 100%;
+min-width: 100%;
+position:fixed;
+display: flex;
+margin-left: auto; margin-right: auto;
+overflow: scroll;
+} */
+body{
+    background-color: rgb(244, 207, 235);  
+}
+.container{
+    width: 95%;
+    margin: auto;
+    display: flex;
+  }
+  
+  .notebook{
+    background-image: url("background_img.webp");
+    background-size:cover;
+    width: 1000px;
+    min-height: 100vh;
+    padding-top: 20px;
+    margin:auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 10px 10px 24px 0px rgba(239, 195, 120, 0.737);
+    font-family: 'Over the Rainbow', cursive;
+   
+  }
+  /* #groceryItems{
+    font-size: 0.9rem;
+  }
+  #groceryItems h2{
+    cursor: pointer;
+  } */
+
+  .title{
+    font-size: 1.25rem;
+    text-align: center;
+  }
+  
+  .input-container{
+    width: 70%;
+    display: flex;
+    gap: 20px;
+    justify-content:end;
+  }
+  
+  .input-container i{
+    cursor: pointer;
+    font-size: 2.5rem;
+    color: lightpink;
+  }
+  
+  .input-container input{
+    font-family: inherit;
+    outline: 0;
+    border: 0;
+    width: 65%;
+    font-size: 1.5rem;
+    border-bottom: 3px solid peachpuff;
+  }
+  
+  #groceryItems{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 75%;
+    font-size: 1.5rem;
+  }
+  
+  #groceryItems h2{
+    cursor: pointer;
+  }
+  
+  
