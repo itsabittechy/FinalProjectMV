@@ -10,13 +10,17 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.send('Welcome to the Grocery List app!')
 })
-const database = new Datastore('database.db')
-database.loadDatabase();
 
-app.post('/grocery/:list', (req, res) => {
-    console.log(req.body) // Instead of logging it, you need to save it to the db!
-    res.status(200).send('You hit the grocery/:list endpoint!')
-    
+app.post('/grocery/:id', (req, res) => {
+    const list = escape(JSON.stringify(req.body.groceryList))
+    console.log(list)
+    const id = req.params.id
+    // db.run(`INSERT INTO GroceryList (id,list) VALUES ('${id}', '${list}');`)
+    res.sendStatus(200)
+})
+
+app.get('/grocery/:id', (req, res) => {
+    // Get the grocery list from the database and send it to the frontend
 })
 
 const port = 3000;

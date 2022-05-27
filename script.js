@@ -20,13 +20,14 @@ addItem = async () => {
   // Check if is in list already
   const isInListAlready = !!groceryList.find(x => x.text.toLowerCase() === val.toLowerCase())
   if (isInListAlready) {
-    alert('Item is already in list!')
+    alert('Item is already in list!') 
     return
   }
   // Add the item to the array
   groceryList.push({
     text: val,
     purchased: false
+   
   })
   // Send it to the backend to add it to the database
   const response = await axios.post(`http://localhost:3000/grocery/${listId}`, { groceryList })

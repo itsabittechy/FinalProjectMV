@@ -1,14 +1,3 @@
-/* .notebook{
-background-image: url("background_img.webp");
-background-size:cover;
-background-repeat: no-repeat; 
-min-height: 100%;
-min-width: 100%;
-position:fixed;
-display: flex;
-margin-left: auto; margin-right: auto;
-overflow: scroll;
-} */
 body{
     background-color: rgb(244, 207, 235);  
 }
@@ -25,7 +14,7 @@ body{
     min-height: 100vh;
     padding-top: 20px;
     margin:auto;
-    display: wrap;
+    display: flex;
     gap: 10px;
     text-align: center;
     align-items: center;
