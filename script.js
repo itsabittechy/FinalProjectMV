@@ -1,61 +1,62 @@
-// const sqlite3 = require("sqlite3")
-// const db = new sqlite3.Database("./database.db", sqlite3.OPEN_READWRITE, (err)=>{
-//     if(err)
-//      {
-//      return console.error(err.message);
-//      }
-//      else{
-//         console.log("Success!!");
-//      }
-//     })
 
-// const express = require('express');
-// const app = express();
-// const port = 3000;
-// app.use(express.static('public'));
-// app.listen(port, () => {
-// console.log(`Server listening at http://localhost:${port}`)
-// })
+const url = new URL(window.location);
+const listId = url.searchParams.get('id')
+if (!listId) {
+  const listId = Math.floor(Math.random()*10**8)
+  url.searchParams.set('id', listId);
+  window.history.pushState(null, '', url.toString());
+}
 
-
-// document.querySelector("#eraser").addEventListener("click", () => {
-//     document.querySelector("#groceryItems").textContent = "";
-//   })
-  
 document.querySelector("#userInput").addEventListener("keydown", (event) => {
-    if(event.key == "Enter")
-      addItem(h2);
-  });
-  
-addItem = () => {
-const item = document.createElement("h2")
-    item.textContent = " " + document.querySelector("#userInput").value;
-    let i = 0;
-    let txt = 'writing typing effect!'; /* The text */
-    let speed = 50; /* The speed/duration of the effect in milliseconds */
-    
-    function typeWriter() {
-      if (i < txt.length) {
-        document.getElementById("demo").innerHTML += txt.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-      }
-    }  
-  
-item.addEventListener("click", () => {
-      if(item.style.textDecoration != "line-through")
-        item.style.textDecoration = "line-through";
-      else
-        item.style.textDecoration = "none";
-    })
-     if(item.style.textDecoration != "line-through")
-      item.style.textDecoration = "line-through";
-    else
-      item.style.textDecoration = "none";
+    if (event.key == "Enter") { addItem(h2); }
+});
 
-const fetch = asyncitem.addEventListener("double-click",() =>{
+let groceryList = []
 
-      })
-document.querySelector("#groceryItems").appendChild(item);
-document.querySelector("#userInput").value = "";
+addItem = async () => {
+  const item = document.createElement("h2")
+  // Get the item text:
+  const val = document.querySelector("#userInput").value
+  // Check if is in list already
+  const isInListAlready = !!groceryList.find(x => x.text.toLowerCase() === val.toLowerCase())
+  if (isInListAlready) {
+    alert('Item is already in list!')
+    return
   }
+  // Add the item to the array
+  groceryList.push({
+    text: val,
+    purchased: false
+  })
+  // Send it to the backend to add it to the database
+  const response = await axios.post(`http://localhost:3000/grocery/${listId}`, { groceryList })
+  if (response.status === 200) {
+    // Add the item to the DOM
+    item.textContent = " " + val;
+    document.querySelector("#groceryItems").appendChild(item);
+    // Functionality to mark items purchased
+    item.addEventListener("click", () => {
+      const listItem = groceryList.find(x => x.text === val)
+      if (!listItem.purchased) {
+        listItem.purchased = true
+        item.style.textDecoration = "line-through"
+      } else {
+        listItem.purchased = false
+        item.style.textDecoration = "none"
+      }
+      axios.post(`http://localhost:3000/grocery/${listId}`, { groceryList })
+    })
+
+    item.addEventListener("dblclick", (e) => {
+      groceryList = groceryList.filter(x => x.text !== val)
+      item.remove()
+      console.log(groceryList)
+      axios.post(`http://localhost:3000/grocery/${listId}`, { groceryList })
+    })
+
+    document.querySelector("#userInput").value = "";
+  } else {
+    alert('Sorry, we could not save your item')
+  }
+}
+  
