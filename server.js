@@ -27,3 +27,8 @@ const port = 3000;
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`)
 })
+
+// document.querySelector("#userInput").addEventListener("keydown", (event) => {
+//   if (event.key == "dblclick") { localStorage.setItem("groceryList",groceryList)}
+// });  
+// localStorage.removeItem("")

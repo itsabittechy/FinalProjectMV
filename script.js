@@ -53,6 +53,10 @@ addItem = async () => {
       item.remove()
       console.log(groceryList)
       axios.post(`http://localhost:3000/grocery/${listId}`, { groceryList })
+      var groceryL = [] 
+      groceryL=JSON.parse(localStorage.getItem("groceryL"))
+      groceryArray = groceryL.filter(x => x !== val)
+     localStorage.setItem("groceryL", JSON.stringify(groceryArray))
     })
 
     document.querySelector("#userInput").value = "";
@@ -60,4 +64,16 @@ addItem = async () => {
     alert('Sorry, we could not save your item')
   }
 }
-  
+document.querySelector("#userInput").addEventListener("keydown", (event) => {
+  if (event.key == "Enter") {
+    //  localStorage.setItem("groceryList",JSON.stringify(groceryList.push(document.querySelector("#userInput").value)))}
+     var groceryList = [] 
+     groceryList=JSON.parse(localStorage.getItem("groceryL"))
+     groceryList.push(document.querySelector("#userInput").value)
+    localStorage.setItem("groceryL", JSON.stringify(groceryList))
+//  var a = [];
+// a.push(JSON.parse(localStorage.getItem('groceryL')));
+// localStorage.setItem('groceryL', JSON.stringify(a));
+}});  
+
+
